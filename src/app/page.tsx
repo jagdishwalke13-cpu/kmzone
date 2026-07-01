@@ -1,65 +1,107 @@
-import Image from "next/image";
+'use client';
+
+import { useEffect, useRef } from 'react';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+// Components
+import SmoothScroll from '@/components/SmoothScroll';
+import CustomCursor from '@/components/CustomCursor';
+import AnnouncementBar from '@/components/AnnouncementBar';
+import Navbar from '@/components/Navbar';
+import Hero from '@/components/Hero';
+import TrustBadges from '@/components/TrustBadges';
+import CategoryGrid from '@/components/CategoryGrid';
+import TrendingProducts from '@/components/TrendingProducts';
+import CountdownSpotlight from '@/components/CountdownSpotlight';
+import LookbookManifesto from '@/components/LookbookManifesto';
+import PromoGrid from '@/components/PromoGrid';
+import InstagramFeed from '@/components/InstagramFeed';
+import Footer from '@/components/Footer';
+
+gsap.registerPlugin(ScrollTrigger);
 
 export default function Home() {
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      // Scroll Up Reveal for sections as they enter the viewport
+      const reveals = containerRef.current?.querySelectorAll('.scroll-reveal');
+      if (reveals && reveals.length > 0) {
+        reveals.forEach((el) => {
+          gsap.from(el, {
+            y: 60,
+            opacity: 0,
+            duration: 1.2,
+            ease: 'power3.out',
+            scrollTrigger: {
+              trigger: el,
+              start: 'top 85%',
+              toggleActions: 'play none none none',
+            },
+          });
+        });
+      }
+    }, containerRef);
+
+    return () => ctx.revert(); // Cleanup GSAP contexts on component unmount
+  }, []);
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    <SmoothScroll>
+      {/* Snapping Custom Cursor */}
+      <CustomCursor />
+
+      {/* Announcements and Sticky Nav */}
+      <AnnouncementBar />
+      <Navbar />
+
+      {/* Main Content Layout */}
+      <main ref={containerRef} className="flex flex-col bg-bg-primary overflow-x-hidden">
+        {/* Section 1: Cinematic Hero (split view) */}
+        <Hero />
+
+        {/* Section 2: Trust Badges (feature bar) */}
+        <div className="scroll-reveal">
+          <TrustBadges />
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+
+        {/* Section 3: Category Grid (5-column catalog) */}
+        <div className="scroll-reveal">
+          <CategoryGrid />
+        </div>
+
+        {/* Section 4: Trending Products (draggable slider) */}
+        <div className="scroll-reveal">
+          <TrendingProducts />
+        </div>
+
+        {/* Section 5: Limited Drop Spotlight & Countdown [NEW] */}
+        <div className="scroll-reveal">
+          <CountdownSpotlight />
+        </div>
+
+        {/* Section 6: Editorial Lookbook & Manifesto [NEW] */}
+        <div className="scroll-reveal">
+          <LookbookManifesto />
+        </div>
+
+        {/* Section 7: Promotional Grid (12-column asymmetric) */}
+        <div className="scroll-reveal">
+          <PromoGrid />
+        </div>
+
+        {/* Section 8: Instagram Feed (GSAP infinite scroll) */}
+        <div className="scroll-reveal">
+          <InstagramFeed />
+        </div>
+
+        {/* Footer (mega-grid layout) */}
+        <div className="scroll-reveal">
+          <Footer />
         </div>
       </main>
-    </div>
+    </SmoothScroll>
   );
 }
