@@ -94,7 +94,7 @@ export default function Hero() {
       className="w-full h-[85vh] bg-[#0A0A0A] flex relative overflow-hidden select-none"
     >
       {/* Left Side Content Box */}
-      <div className="w-1/2 h-full flex flex-col justify-center pl-16 z-20 relative text-white">
+      <div className="w-full md:w-1/2 h-full flex flex-col justify-center px-6 md:pl-16 z-20 relative text-white">
         <span
           ref={tagRef}
           className="text-[#FFD700] text-xs font-bold tracking-[0.2em] mb-4 block"
@@ -104,7 +104,7 @@ export default function Hero() {
         
         <h2
           ref={headlineRef}
-          className="text-7xl font-syne font-black leading-[1.1] mb-6 overflow-hidden text-white"
+          className="text-4xl sm:text-6xl md:text-7xl lg:text-9xl font-syne font-black leading-[1.1] mb-6 overflow-hidden text-white"
         >
           {titleWords.map((word, idx) => (
             <span key={idx} className="inline-block overflow-hidden mr-4 py-1">
@@ -134,15 +134,15 @@ export default function Hero() {
         </div>
       </div>
 
-      {/* Right Side Image (60% width) with Left Fade Overlay */}
-      <div className="absolute right-0 top-0 w-[60%] h-full z-10 pointer-events-none select-none">
+      {/* Right Side Image (Full width on mobile, 60% on desktop) with Dynamic Fade Overlay */}
+      <div className="absolute right-0 top-0 w-full md:w-[60%] h-full z-10 pointer-events-none select-none">
         <img
           src="/images/hero_model.png"
           alt="Streetwear model"
           className="w-full h-full object-cover object-top"
         />
-        {/* Linear Gradient Fade to Left to blend into black bg */}
-        <div className="absolute inset-0 bg-gradient-to-r from-[#0A0A0A] via-[#0A0A0A]/40 to-transparent w-[50%] h-full left-0 top-0" />
+        {/* Dynamic Gradient: Vertical fade on mobile, Horizontal fade on desktop */}
+        <div className="absolute inset-0 bg-gradient-to-t md:bg-gradient-to-r from-[#0A0A0A] via-[#0A0A0A]/60 md:via-[#0A0A0A]/40 to-transparent w-full md:w-[50%] h-full left-0 top-0" />
       </div>
     </section>
   );
