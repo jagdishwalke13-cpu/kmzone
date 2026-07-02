@@ -42,7 +42,7 @@ export default function CategoryGrid() {
           <a
             key={idx}
             href={cat.link}
-            className="relative w-full h-[300px] md:h-full group overflow-hidden cursor-pointer block border-b md:border-b-0 md:border-r border-gray-100 last:border-0 magnetic-target"
+            className="relative w-full aspect-[3/4] md:aspect-auto md:h-full group overflow-hidden cursor-pointer block border-b md:border-b-0 md:border-r border-gray-100 last:border-0 magnetic-target"
           >
             {/* Grayscale Image transitioning to full color and scaling up */}
             <img

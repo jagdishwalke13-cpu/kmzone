@@ -7,6 +7,7 @@ export default function PromoGrid() {
       title: "NEW DROPS",
       buttonText: "EXPLORE",
       image: "/images/promo_drops.png",
+      bgPosition: "bg-[position:70%_center]",
       link: "#",
     },
     {
@@ -14,6 +15,7 @@ export default function PromoGrid() {
       title: "PREMIUM THRIFT",
       buttonText: "EXPLORE",
       image: "/images/promo_thrift.png",
+      bgPosition: "bg-center",
       link: "#",
     },
     {
@@ -21,6 +23,7 @@ export default function PromoGrid() {
       title: "UP TO 50% OFF",
       buttonText: "SHOP SALE",
       image: "/images/promo_sale.png",
+      bgPosition: "bg-center",
       link: "#",
     },
   ];
@@ -36,7 +39,7 @@ export default function PromoGrid() {
           >
             {/* Background Image scaling on hover */}
             <div
-              className="absolute inset-0 bg-cover bg-center transition-transform duration-700 ease-out group-hover:scale-105"
+              className={`absolute inset-0 bg-cover ${block.bgPosition} transition-transform duration-700 ease-out group-hover:scale-105`}
               style={{ backgroundImage: `url('${block.image}')` }}
             />
             

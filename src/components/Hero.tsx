@@ -143,7 +143,7 @@ export default function Hero() {
         <img
           src="/images/hero_model.png"
           alt="Streetwear model"
-          className="w-full h-full object-cover object-top"
+          className="w-full h-full object-cover object-right-top md:object-top"
         />
         {/* Dynamic Gradient: Vertical fade on mobile, Horizontal fade on desktop */}
         <div className="absolute inset-0 bg-gradient-to-t md:bg-gradient-to-r from-[#0A0A0A] via-[#0A0A0A]/60 md:via-[#0A0A0A]/40 to-transparent w-full md:w-[50%] h-full left-0 top-0" />
