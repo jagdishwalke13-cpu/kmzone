@@ -5,6 +5,7 @@ import { products } from '@/data/products';
 import { useCart } from '@/context/CartContext';
 import { gsap } from 'gsap';
 import { ArrowLeft, Plus, Minus } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 
 interface PageProps {
   params: Promise<{ id: string }>;
@@ -16,13 +17,16 @@ export default function ProductDetail({ params }: PageProps) {
   const product = products.find((p) => p.id === id);
 
   const { addToCart } = useCart();
+  const router = useRouter();
+  
   const [size, setSize] = useState('M');
   const [quantity, setQuantity] = useState(1);
   const [added, setAdded] = useState(false);
 
   const containerRef = useRef<HTMLDivElement>(null);
   const imgRef = useRef<HTMLImageElement>(null);
-  const buttonRef = useRef<HTMLButtonElement>(null);
+  const addToCartBtnRef = useRef<HTMLButtonElement>(null);
+  const buyNowBtnRef = useRef<HTMLButtonElement>(null);
 
   // 1. Continuous Float Animation on Image
   useEffect(() => {
@@ -43,24 +47,24 @@ export default function ProductDetail({ params }: PageProps) {
   }, [product]);
 
   // 2. Magnetic Button Lift Animations
-  const handleButtonMouseEnter = () => {
-    if (buttonRef.current) {
-      gsap.to(buttonRef.current, {
+  const handleBtnMouseEnter = (btnRef: React.RefObject<HTMLButtonElement | null>, color: string) => {
+    if (btnRef.current) {
+      gsap.to(btnRef.current, {
         y: -6,
         scale: 1.02,
-        boxShadow: '0px 15px 25px rgba(255, 215, 0, 0.25)',
+        boxShadow: `0px 15px 25px ${color}`,
         duration: 0.3,
         ease: 'back.out(1.7)',
       });
     }
   };
 
-  const handleButtonMouseLeave = () => {
-    if (buttonRef.current) {
-      gsap.to(buttonRef.current, {
+  const handleBtnMouseLeave = (btnRef: React.RefObject<HTMLButtonElement | null>) => {
+    if (btnRef.current) {
+      gsap.to(btnRef.current, {
         y: 0,
         scale: 1,
-        boxShadow: '0px 0px 0px rgba(255, 215, 0, 0)',
+        boxShadow: '0px 0px 0px rgba(0, 0, 0, 0)',
         duration: 0.3,
         ease: 'power2.out',
       });
@@ -89,6 +93,18 @@ export default function ProductDetail({ params }: PageProps) {
     });
     setAdded(true);
     setTimeout(() => setAdded(false), 2000);
+  };
+
+  const handleBuyNow = () => {
+    addToCart({
+      id: product.id,
+      name: product.name,
+      price: product.price,
+      image: product.image,
+      size,
+      quantity,
+    });
+    router.push('/checkout');
   };
 
   const sizes = ['S', 'M', 'L', 'XL'];
@@ -198,20 +214,34 @@ export default function ProductDetail({ params }: PageProps) {
               </div>
             </div>
 
-            {/* Add to Cart CTA */}
-            <button
-              ref={buttonRef}
-              onClick={handleAddToCart}
-              onMouseEnter={handleButtonMouseEnter}
-              onMouseLeave={handleButtonMouseLeave}
-              className={`magnetic-target w-full py-4 text-xs font-black tracking-widest uppercase transition-colors duration-300 cursor-pointer ${
-                added
-                  ? 'bg-green-600 text-white hover:bg-green-600 hover:text-white'
-                  : 'bg-black text-white hover:bg-[#FFD700] hover:text-black'
-              }`}
-            >
-              {added ? '✓ ADDED TO CART!' : 'ADD TO CART'}
-            </button>
+            {/* CTA Buttons Row */}
+            <div className="flex flex-col sm:flex-row gap-4 w-full mt-4">
+              {/* Add to Cart */}
+              <button
+                ref={addToCartBtnRef}
+                onClick={handleAddToCart}
+                onMouseEnter={() => handleBtnMouseEnter(addToCartBtnRef, 'rgba(0, 0, 0, 0.15)')}
+                onMouseLeave={() => handleBtnMouseLeave(addToCartBtnRef)}
+                className={`magnetic-target flex-1 py-4 text-xs font-black tracking-widest uppercase transition-colors duration-300 cursor-pointer border border-black ${
+                  added
+                    ? 'bg-green-600 text-white border-green-600'
+                    : 'bg-black text-white hover:bg-white hover:text-black'
+                }`}
+              >
+                {added ? '✓ ADDED TO CART!' : 'ADD TO CART'}
+              </button>
+
+              {/* Buy It Now */}
+              <button
+                ref={buyNowBtnRef}
+                onClick={handleBuyNow}
+                onMouseEnter={() => handleBtnMouseEnter(buyNowBtnRef, 'rgba(255, 215, 0, 0.25)')}
+                onMouseLeave={() => handleBtnMouseLeave(buyNowBtnRef)}
+                className="magnetic-target flex-1 py-4 bg-[#FFD700] text-black hover:bg-black hover:text-white border border-[#FFD700] hover:border-black text-xs font-black tracking-widest uppercase transition-all duration-300 cursor-pointer"
+              >
+                BUY IT NOW
+              </button>
+            </div>
 
           </div>
 

@@ -2,12 +2,14 @@
 
 import { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
+import { useCart } from '@/context/CartContext';
 
 export default function TrendingProducts() {
   const sliderRef = useRef<HTMLDivElement>(null);
   const [isDragging, setIsDragging] = useState(false);
   const [startX, setStartX] = useState(0);
   const [scrollLeft, setScrollLeft] = useState(0);
+  const { addToCart } = useCart();
 
   // Reusable GSAP Continuous Float animation
   useEffect(() => {
@@ -31,7 +33,6 @@ export default function TrendingProducts() {
     return () => ctx.revert();
   }, []);
 
-  // Horizontal dragging logic
   const handleMouseDown = (e: React.MouseEvent) => {
     if (!sliderRef.current) return;
     setIsDragging(true);
@@ -53,6 +54,18 @@ export default function TrendingProducts() {
     const x = e.pageX - sliderRef.current.offsetLeft;
     const walk = (x - startX) * 1.5;
     sliderRef.current.scrollLeft = scrollLeft - walk;
+  };
+
+  const handleQuickAdd = (e: React.MouseEvent, prod: any) => {
+    e.preventDefault();
+    e.stopPropagation();
+    addToCart({
+      id: prod.id,
+      name: prod.name,
+      price: parseInt(prod.price.replace(/[^\d]/g, '')),
+      image: prod.image,
+      size: 'M',
+    });
   };
 
   const products = [
@@ -105,9 +118,10 @@ export default function TrendingProducts() {
         className={`flex gap-6 overflow-x-auto snap-x no-scrollbar max-w-7xl mx-auto pb-4 cursor-grab active:cursor-grabbing ${isDragging ? 'select-none' : ''}`}
       >
         {products.map((prod) => (
-          <div
+          <a
+            href={`/products/${prod.id}`}
             key={prod.id}
-            className="w-[280px] shrink-0 snap-start flex flex-col group"
+            className="w-[280px] shrink-0 snap-start flex flex-col group block magnetic-target"
           >
             {/* Image Box */}
             <div className="w-full h-[350px] bg-[#F5F5F5] flex items-center justify-center p-6 relative overflow-hidden">
@@ -123,15 +137,18 @@ export default function TrendingProducts() {
 
             {/* Details */}
             <div className="flex justify-between items-center mt-4">
-              <span className="text-sm font-bold text-black">{prod.name}</span>
-              <span className="text-sm font-bold text-gray-600">{prod.price}</span>
+              <span className="text-xs font-black text-black tracking-widest uppercase">{prod.name}</span>
+              <span className="text-xs font-black text-gray-600">{prod.price}</span>
             </div>
 
             {/* Add to Cart Button */}
-            <button className="magnetic-target w-full bg-black text-white text-xs font-bold py-3 mt-4 transition-colors duration-300 group-hover:bg-[#FFD700] group-hover:text-black cursor-pointer">
+            <button
+              onClick={(e) => handleQuickAdd(e, prod)}
+              className="magnetic-target w-full bg-black text-white text-xs font-bold py-3 mt-4 transition-colors duration-300 group-hover:bg-[#FFD700] group-hover:text-black cursor-pointer"
+            >
               ADD TO CART
             </button>
-          </div>
+          </a>
         ))}
       </div>
     </section>
