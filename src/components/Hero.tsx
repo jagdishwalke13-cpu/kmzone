@@ -86,15 +86,13 @@ export default function Hero() {
     }
   };
 
-  const titleWords = ["KMZONE.", "CURATED."];
-
   return (
     <section
       ref={heroRef}
       className="w-full h-[85vh] bg-[#0A0A0A] flex relative overflow-hidden select-none"
     >
       {/* Left Side Content Box */}
-      <div className="w-full md:w-1/2 h-full flex flex-col justify-center px-6 md:pl-16 z-20 relative text-white">
+      <div className="w-full md:w-[55%] h-full flex flex-col justify-center px-6 md:pl-16 z-20 relative text-white">
         <span
           ref={tagRef}
           className="text-[#FFD700] text-xs font-bold tracking-[0.2em] mb-4 block"
@@ -104,15 +102,21 @@ export default function Hero() {
         
         <h2
           ref={headlineRef}
-          className="text-4xl sm:text-6xl md:text-7xl lg:text-9xl font-syne font-black leading-[1.1] mb-6 overflow-hidden text-white"
+          className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-syne font-black leading-[1.1] mb-6 overflow-hidden text-white"
         >
-          {titleWords.map((word, idx) => (
-            <span key={idx} className="inline-block overflow-hidden mr-4 py-1">
-              <span className="inline-block word-span transform origin-bottom-left">
-                {word}
-              </span>
+          <span className="inline-block overflow-hidden mr-4 py-1">
+            <span className="inline-block word-span transform origin-bottom-left">
+              KMZONE
+              <span className="text-[#FFD700] animate-blink inline-block">.</span>
             </span>
-          ))}
+          </span>
+          <br className="hidden md:block" />
+          <span className="inline-block overflow-hidden mr-4 py-1">
+            <span className="inline-block word-span transform origin-bottom-left">
+              CURATED
+              <span className="text-white/30 font-light inline-block">.</span>
+            </span>
+          </span>
         </h2>
 
         <p
@@ -134,8 +138,8 @@ export default function Hero() {
         </div>
       </div>
 
-      {/* Right Side Image (Full width on mobile, 60% on desktop) with Dynamic Fade Overlay */}
-      <div className="absolute right-0 top-0 w-full md:w-[60%] h-full z-10 pointer-events-none select-none">
+      {/* Right Side Image (Full width on mobile, 50% on desktop) with Dynamic Fade Overlay */}
+      <div className="absolute right-0 top-0 w-full md:w-[50%] h-full z-10 pointer-events-none select-none">
         <img
           src="/images/hero_model.png"
           alt="Streetwear model"
