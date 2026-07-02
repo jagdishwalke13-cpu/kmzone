@@ -127,14 +127,15 @@ export default function Hero() {
         </p>
 
         <div>
-          <button
-            ref={buttonRef}
+          <a
+            ref={buttonRef as any}
+            href="/shop"
             onMouseEnter={handleButtonMouseEnter}
             onMouseLeave={handleButtonMouseLeave}
-            className="magnetic-target bg-white text-black px-8 py-4 font-bold uppercase transition-colors hover:bg-[#FFD700] text-xs tracking-wider cursor-pointer"
+            className="magnetic-target bg-white text-black px-8 py-4 font-bold uppercase transition-colors hover:bg-[#FFD700] text-xs tracking-wider cursor-pointer text-center inline-block"
           >
             SHOP THE DROP
-          </button>
+          </a>
         </div>
       </div>
 

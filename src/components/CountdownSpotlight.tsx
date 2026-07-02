@@ -124,10 +124,13 @@ export default function CountdownSpotlight() {
 
         {/* Right Side: Product Spotlight */}
         <div className="flex flex-col items-center justify-center">
-          <div className="w-full max-w-[400px] aspect-[4/5] bg-[#F5F5F5] flex items-center justify-center p-8 relative border border-gray-100">
+          <a
+            href="/products/KM-06"
+            className="w-full max-w-[400px] aspect-[4/5] bg-[#F5F5F5] flex items-center justify-center p-8 relative border border-gray-100 block group cursor-pointer magnetic-target"
+          >
             {/* Tag label */}
             <span className="absolute top-4 left-4 text-[10px] font-black text-gray-400">
-              UPCOMING // KM-06
+              KMZONE // KM-06
             </span>
 
             {/* Tactical boots (Continuous Float) */}
@@ -135,9 +138,9 @@ export default function CountdownSpotlight() {
               ref={bootsRef}
               src="/images/product_boots.png"
               alt="KM-06 Giga Tactical Boots"
-              className="w-full h-full object-contain pointer-events-none drop-shadow-[0_20px_35px_rgba(0,0,0,0.15)]"
+              className="w-full h-full object-contain pointer-events-none drop-shadow-[0_20px_35px_rgba(0,0,0,0.15)] group-hover:scale-105 transition-transform duration-500"
             />
-          </div>
+          </a>
 
           <div className="text-center mt-6 w-full max-w-[400px] flex flex-col items-center">
             <h3 className="text-lg font-syne font-black text-black tracking-tight mb-1">
@@ -147,14 +150,15 @@ export default function CountdownSpotlight() {
               ESTIMATED PRICE: ₹3,999
             </p>
 
-            <button
-              ref={buttonRef}
+            <a
+              ref={buttonRef as any}
+              href="/products/KM-06"
               onMouseEnter={handleButtonMouseEnter}
               onMouseLeave={handleButtonMouseLeave}
-              className="magnetic-target w-full py-4 bg-black text-white hover:bg-[#FFD700] hover:text-black font-black text-xs tracking-widest uppercase transition-colors duration-300 cursor-pointer"
+              className="magnetic-target w-full py-4 bg-black text-white hover:bg-[#FFD700] hover:text-black font-black text-xs tracking-widest uppercase transition-colors duration-300 cursor-pointer text-center block"
             >
-              NOTIFY ME ON DROP
-            </button>
+              BUY SPOTLIGHT PRODUCT
+            </a>
           </div>
         </div>
 

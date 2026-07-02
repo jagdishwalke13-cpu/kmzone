@@ -8,7 +8,7 @@ export default function PromoGrid() {
       buttonText: "EXPLORE",
       image: "/images/promo_drops.png",
       bgPosition: "bg-[position:70%_center]",
-      link: "#",
+      link: "/shop?category=SPORTSWEAR",
     },
     {
       colSpan: "col-span-12 md:col-span-6",
@@ -16,7 +16,7 @@ export default function PromoGrid() {
       buttonText: "EXPLORE",
       image: "/images/promo_thrift.png",
       bgPosition: "bg-center",
-      link: "#",
+      link: "/shop?category=LOWER",
     },
     {
       colSpan: "col-span-12 md:col-span-3",
@@ -24,7 +24,7 @@ export default function PromoGrid() {
       buttonText: "SHOP SALE",
       image: "/images/promo_sale.png",
       bgPosition: "bg-center",
-      link: "#",
+      link: "/shop",
     },
   ];
 

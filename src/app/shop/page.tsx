@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { Search as SearchIcon, ShoppingBag } from 'lucide-react';
 import { products, Product } from '@/data/products';
 import { useCart } from '@/context/CartContext';
@@ -9,6 +9,17 @@ export default function Shop() {
   const [selectedCategory, setSelectedCategory] = useState<string>('ALL');
   const [searchQuery, setSearchQuery] = useState<string>('');
   const { addToCart } = useCart();
+
+  // Synchronize category state from URL query parameter
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const params = new URLSearchParams(window.location.search);
+      const cat = params.get('category');
+      if (cat) {
+        setSelectedCategory(cat.toUpperCase());
+      }
+    }
+  }, []);
 
   const categories = ['ALL', 'CARGOS', 'LOWER', 'TSHIRTS', 'SPORTSWEAR', 'ACCESSORIES'];
 

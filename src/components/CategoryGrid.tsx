@@ -5,27 +5,27 @@ export default function CategoryGrid() {
     {
       title: "TRENDING CARGOS",
       image: "/images/category_pants.png",
-      link: "#",
+      link: "/shop?category=CARGOS",
     },
     {
       title: "LOWER",
       image: "/images/category_hoodie.png",
-      link: "#",
+      link: "/shop?category=LOWER",
     },
     {
       title: "TSHIRTS",
       image: "/images/category_tshirt.png",
-      link: "#",
+      link: "/shop?category=TSHIRTS",
     },
     {
       title: "SPORTSWEAR",
       image: "/images/category_outerwear.png",
-      link: "#",
+      link: "/shop?category=SPORTSWEAR",
     },
     {
       title: "ACCESSORIES",
       image: "/images/category_accessories.png",
-      link: "#",
+      link: "/shop?category=ACCESSORIES",
     },
   ];
 

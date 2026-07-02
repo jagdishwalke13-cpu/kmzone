@@ -28,7 +28,7 @@ export default function LookbookManifesto() {
         {/* Column 2 (Span 4): Look 01 */}
         <div className="col-span-12 sm:col-span-6 md:col-span-4 mt-8 md:mt-0">
           <a
-            href="#"
+            href="/products/KM-01"
             className="group relative block aspect-[3/4.5] bg-[#F5F5F5] overflow-hidden border border-gray-100 transform hover:-translate-y-3 transition-transform duration-500 ease-out magnetic-target"
           >
             {/* Image */}
@@ -58,7 +58,7 @@ export default function LookbookManifesto() {
         {/* Column 3 (Span 4): Look 02 (Asymmetric shift down) */}
         <div className="col-span-12 sm:col-span-6 md:col-span-4 mt-8 md:mt-16">
           <a
-            href="#"
+            href="/products/KM-03"
             className="group relative block aspect-[3/4.5] bg-[#F5F5F5] overflow-hidden border border-gray-100 transform hover:-translate-y-3 transition-transform duration-500 ease-out magnetic-target"
           >
             {/* Image */}
