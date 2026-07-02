@@ -1,5 +1,10 @@
 import type { Metadata } from "next";
 import { Syne, Inter } from "next/font/google";
+import { CartProvider } from "@/context/CartContext";
+import SmoothScroll from "@/components/SmoothScroll";
+import CustomCursor from "@/components/CustomCursor";
+import AnnouncementBar from "@/components/AnnouncementBar";
+import Navbar from "@/components/Navbar";
 import "./globals.css";
 
 const syne = Syne({
@@ -30,7 +35,19 @@ export default function RootLayout({
       className={`${syne.variable} ${inter.variable} h-full antialiased bg-white`}
     >
       <body className="min-h-full flex flex-col bg-bg-primary text-text-main">
-        {children}
+        <CartProvider>
+          <SmoothScroll>
+            {/* Custom Snap Cursor */}
+            <CustomCursor />
+            
+            {/* Global Header Elements */}
+            <AnnouncementBar />
+            <Navbar />
+            
+            {/* Page content */}
+            {children}
+          </SmoothScroll>
+        </CartProvider>
       </body>
     </html>
   );
